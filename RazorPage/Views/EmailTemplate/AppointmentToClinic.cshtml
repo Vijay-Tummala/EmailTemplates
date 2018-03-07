@@ -1,0 +1,208 @@
+﻿
+@{
+    ViewBag.Title = "AppointmentToClinic";
+}
+@functions{
+    public bool ContainsNotNullProp(dynamic obj, string prop)
+    {
+        object tempObj = null;
+        bool propExists = ((IDictionary<String, object>)obj).TryGetValue(prop, out tempObj);
+        return propExists && tempObj != null;
+    }
+}
+<table style="font-size:11pt;font-family:Tahoma;font-weight:normal;">
+    <tr>
+        <td style="width:33%;">To:</td>@if (ContainsNotNullProp(Model.ARObject, "RequestingClinic"))
+        {
+    <td>@Model.ARObject.RequestingClinic</td>}
+        else
+        {
+    <td />}
+    </tr>
+    <tr>
+        <td>Fax:</td>@if (ContainsNotNullProp(Model.ARObject, "ClinicFax") && !string.IsNullOrEmpty(Model.ARObject.ClinicFax))
+        {
+    <td>@String.Format("({0}) {1}-{2}", Model.ARObject.ClinicFax.Substring(0, 3), Model.ARObject.ClinicFax.Substring(3, 3), Model.ARObject.ClinicFax.Substring(6, Model.ARObject.ClinicFax.Length - 6))</td>}
+        else
+        {
+    <td />}
+    </tr>
+    <tr>
+        <td>Attn:</td>@if (ContainsNotNullProp(Model.ARObject, "Contact"))
+        {
+    <td>@Model.ARObject.Contact</td>}
+        else
+        {
+    <td />}
+    </tr>
+    <tr>
+        <td>Physician:</td>@if (ContainsNotNullProp(Model.ARObject, "PhysicianName"))
+        {
+            if (ContainsNotNullProp(Model.ARObject, "Suffix"))
+            {
+    <td>@Model.ARObject.PhysicianName &nbsp; @Model.ARObject.Suffix</td>}
+            else
+            {
+    <td>@Model.ARObject.PhysicianName</td>}
+        }
+        else
+        {
+    <td />}
+    </tr>
+    <tr>
+        <td>From:</td>
+        <td>Corporate Remedies - Ancillary Resource Center</td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <p style="font-size:16pt;font-weight:bold;font-family:Tahoma;">APPOINTMENT NOTIFICATION</p>
+        </td>
+    </tr>
+    <tr>
+        <td style="width:33%;">Patient Name: </td>@if (ContainsNotNullProp(Model.ARObject, "PatientName"))
+        {
+    <td>@Model.ARObject.PatientName</td>}
+        else
+        {
+    <td />}
+    </tr>
+    <tr>
+        <td>DOB:</td>@if (ContainsNotNullProp(Model.ARObject, "DOB"))
+        {
+    <td>@Model.ARObject.DOB</td>}
+        else
+        {
+    <td />}
+    </tr>
+    <tr>
+        <td>Employer:</td>@if (ContainsNotNullProp(Model.ARObject, "Client"))
+        {
+    <td>@Model.ARObject.Client</td>}
+        else
+        {
+    <td />}
+    </tr>
+    <tr>
+        <td>Location No:</td>@if (ContainsNotNullProp(Model.ARObject, "StoreID"))
+        {
+    <td>@Model.ARObject.StoreID</td>}
+        else
+        {
+    <td />}
+    </tr>
+    <tr>
+        <td>Claim No:</td>@if (ContainsNotNullProp(Model.ARObject, "ClaimNumber"))
+        {
+    <td>@Model.ARObject.ClaimNumber</td>}
+        else
+        {
+    <td />}
+    </tr>
+    <tr>
+        <td>DOI:</td>@if (ContainsNotNullProp(Model.ARObject, "DOI"))
+        {
+    <td>@Model.ARObject.DOI</td>}
+        else
+        {
+    <td />}
+    </tr>
+    <tr style="margin-left:10px;margin-right:10px;font-weight:bold">
+        <td style="vertical-align: top;font-weight:bold;">Approved Service:</td>@if (((ContainsNotNullProp(Model.ARObject, "ApprovedServices") && !String.IsNullOrEmpty(Model.ARObject.ApprovedServices)) || (ContainsNotNullProp(Model.ARObject, "ApprovedDetails") && !String.IsNullOrEmpty(Model.ARObject.ApprovedDetails)) || (ContainsNotNullProp(Model.ARObject, "ApprovedBodyPart") && !String.IsNullOrEmpty(Model.ARObject.ApprovedBodyPart))))
+        {
+            if (ContainsNotNullProp(Model.ARObject, "ApprovedDetails") && ContainsNotNullProp(Model.ARObject, "ApprovedBodyPart"))
+            {
+    <td style="text-transform:uppercase;font-weight:bold;">@Model.ARObject.ApprovedServices&nbsp;@Model.ARObject.ApprovedDetails&nbsp;@Model.ARObject.ApprovedBodyPart</td>}
+            else if (ContainsNotNullProp(Model.ARObject, "ApprovedDetails"))
+            {
+    <td style="text-transform:uppercase;font-weight:bold;">@Model.ARObject.ApprovedServices&nbsp;@Model.ARObject.ApprovedDetails</td>}
+            else if (ContainsNotNullProp(Model.ARObject, "ApprovedBodyPart"))
+            {
+    <td style="text-transform:uppercase;font-weight:bold;">@Model.ARObject.ApprovedServices&nbsp;@Model.ARObject.ApprovedBodyPart</td>}
+            else
+            {
+    <td style="text-transform:uppercase;font-weight:bold;">@Model.ARObject.ApprovedServices</td>}
+        }
+        else if (ContainsNotNullProp(Model.ARObject, "SvcRequested"))
+        {
+            if (ContainsNotNullProp(Model.ARObject, "Details") && ContainsNotNullProp(Model.ARObject, "InjuryDesc"))
+            {
+    <td style="text-transform:uppercase;">@Model.ARObject.SvcRequested&nbsp;@Model.ARObject.Details&nbsp;@Model.ARObject.InjuryDesc</td>}
+            else if (ContainsNotNullProp(Model.ARObject, "Details"))
+            {
+    <td style="text-transform:uppercase;">@Model.ARObject.SvcRequested&nbsp;@Model.ARObject.Details</td>}
+            else if (ContainsNotNullProp(Model.ARObject, "InjuryDesc"))
+            {
+    <td style="text-transform:uppercase;">@Model.ARObject.SvcRequested&nbsp;@Model.ARObject.InjuryDesc</td>}
+            else
+            {
+    <td style="text-transform:uppercase;">@Model.ARObject.SvcRequested</td>}
+        }
+        else
+        {
+    <td />}
+    </tr>
+    <tr>
+        <td style="vertical-align: top;font-weight:bold;">Appointment Info:</td>@if (ContainsNotNullProp(Model.ARObject, "ApptDate"))
+        {
+            if (ContainsNotNullProp(Model.ARObject, "ApptTime"))
+            {
+    <td style="font-weight:bold;">@Model.ARObject.ApptDate &nbsp;&nbsp;@@ @Model.ARObject.ApptTime</td>}
+            else
+            {
+    <td style="font-weight:bold;">@Model.ARObject.ApptDate</td>}
+        }
+        else
+        {
+    <td style="font-weight:bold;" />}
+    </tr>
+    <tr>
+        <td style="vertical-align: top;">Ancillary Clinic:</td>@if (ContainsNotNullProp(Model.ARObject, "AncillaryClinic"))
+        {
+            if (ContainsNotNullProp(Model.ARObject.AncillaryClinicInfo, "Address"))
+            {
+    <td style="top:-10px;">
+        @Model.ARObject.AncillaryClinic <p style="margin-top:5px;margin-bottom:5px;"> @Model.ARObject.AncillaryClinicInfo.Address </p>
+    </td>}
+            else
+            {
+    <td>@Model.ARObject.AncillaryClinic</td>}
+        }
+        else
+        {
+    <td />}
+    </tr>
+    <tr>
+        <td>Clinic Phone:</td>@if (ContainsNotNullProp(Model.ARObject, "AncillaryPhone") && !string.IsNullOrEmpty(Model.ARObject.AncillaryPhone))
+        {
+    <td>@String.Format("({0}) {1}-{2}", Model.ARObject.AncillaryPhone.Substring(0, 3), Model.ARObject.AncillaryPhone.Substring(3, 3), Model.ARObject.AncillaryPhone.Substring(6, Model.ARObject.AncillaryPhone.Length - 6)) </td>}
+        else
+        {
+    <td />}
+    </tr>
+    <tr>
+        <td>Fax:</td>@if (ContainsNotNullProp(Model.ARObject, "AncillaryFax") && !string.IsNullOrEmpty(Model.ARObject.AncillaryFax))
+        {
+    <td>@String.Format("({0}) {1}-{2}", Model.ARObject.AncillaryFax.Substring(0, 3), Model.ARObject.AncillaryFax.Substring(3, 3), Model.ARObject.AncillaryFax.Substring(6, Model.ARObject.AncillaryFax.Length - 6)) </td>}
+        else
+        {
+    <td />}
+    </tr>
+</table><p> Thank You,<p style="margin-top:5px;margin-bottom:5px;">
+    <strong>Corporate Remedies,Inc</strong>
+</p><p style="margin-top:5px;margin-bottom:5px;">Ancillary Resource Center</p><p style="margin-top:5px;margin-bottom:5px;">Ph: (866) 818-9190 </p>
+<table style="width:700px;">
+    <tr style="text-decoration:Underline;">
+        <td style="width:30%;">Texas</td>
+        <td>Oklahoma</td>
+    </tr>
+    <tr>
+        <td>(888) 379-2049 Texas Fax</td>
+        <td>(866) 349-0087 Oklahoma Fax</td>
+    </tr>
+    <tr>
+        <td style="color:blue;text-decoration:underline;">referrals@corporateremedies.com</td>
+        <td style="color:blue;text-decoration:underline;">OKreferrals@corporateremedies.com</td>
+    </tr>
+</table><p style="margin-top:5px;margin-bottom:5px;">Visit our website at: <p style="color:blue;text-decoration:underline;display:inline;">http://www.corporateremedies.com</p>
+	</p><p style="font-size:10px;">CONFIDENTIALITY NOTICE: This message and all attachments transmitted herewith may contain legally privileged and confidential information intended solely for the use of the addressee. If the reader of this message is not the intended recipient, you are hereby notified that any reading, dissemination, distribution, copying, or other use of this message or its attachments is strictly prohibited. If you have received this message in error, please notify the sender immediately and delete this message from your system. Thank you.</p>
+

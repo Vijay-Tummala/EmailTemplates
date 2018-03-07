@@ -1,0 +1,203 @@
+﻿
+@{
+    ViewBag.Title = "RequestSpecialistTemplate";
+}
+@functions{
+    public bool ContainsNotNullProp(dynamic obj, string prop)
+    {
+        object tempObj = null;
+        bool propExists = ((IDictionary<String, object>)obj).TryGetValue(prop, out tempObj);
+        return propExists && tempObj != null;
+    }
+}
+<table style="font-size:11pt;font-family:Tahoma;font-weight:normal;width:100%;">
+    <tr>
+        <td colspan="2">
+            <p style="font-size:16pt;font-weight:bold;font-family:Tahoma">REQUEST FOR SPECIALIST</p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <p>Attached you will find information received regarding the request below. Please include claim number and verify all information below when responding.</p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <br />
+        </td>
+    </tr>
+    <tr style="margin-left:10px;margin-right:10px;">
+        <td style="width:22%;">Request Number: </td>    @if (ContainsNotNullProp(Model.ARObject, "RequestId"))
+        {
+    <td>@Model.ARObject.RequestId</td>     }
+        else
+        {
+    <td />     }
+    </tr>
+    <tr style="margin-left:10px;margin-right:10px;">
+        <td>Patient Name: </td>    @if (ContainsNotNullProp(Model.ARObject, "PatientName"))
+        {
+    <td>@Model.ARObject.PatientName</td>     }
+        else
+        {
+    <td />     }
+    </tr>
+    <tr style="margin-left:10px;margin-right:10px;">
+        <td>DOB:</td>   @if (ContainsNotNullProp(Model.ARObject, "DOB"))
+        {
+    <td>@Model.ARObject.DOB</td>     }
+        else
+        {
+    <td />     }
+    </tr>
+    <tr style="margin-left:10px;margin-right:10px;">
+        <td>SSN:</td>   @if (ContainsNotNullProp(Model.ARObject, "SSN"))
+        {
+    <td>@Model.ARObject.SSN</td>     }
+        else
+        {
+    <td />     }
+    </tr>
+    <tr style="margin-left:10px;margin-right:10px;line-height:100%;">
+        <td colspan="2">
+            <br />
+        </td>
+    </tr>
+    <tr style="margin-left:10px;margin-right:10px;">
+        <td>Employer:</td>   @if (ContainsNotNullProp(Model.ARObject, "Client"))
+        {
+    <td>@Model.ARObject.Client</td>     }
+        else
+        {
+    <td />     }
+    </tr>
+    <tr style="margin-left:10px;margin-right:10px;">
+        <td>Location No:</td>   @if (ContainsNotNullProp(Model.ARObject, "StoreID"))
+        {
+    <td>@Model.ARObject.StoreID</td>     }
+        else
+        {
+    <td />     }
+    </tr>
+    <tr style="margin-left:10px;margin-right:10px;">
+        <td>Claim No:</td>   @if (ContainsNotNullProp(Model.ARObject, "ClaimNumber"))
+        {
+    <td>@Model.ARObject.ClaimNumber</td>     }
+        else
+        {
+    <td />     }
+    </tr>
+    <tr style="margin-left:10px;margin-right:10px;">
+        <td>DOI:</td>   @if (ContainsNotNullProp(Model.ARObject, "DOI"))
+        {
+    <td>@Model.ARObject.DOI</td>     }
+        else
+        {
+    <td />     }
+    </tr>
+    <tr style="margin-left:10px;margin-right:10px;">
+        <td colspan="2">
+            <br />
+        </td>
+    </tr>
+    <tr style="margin-left:10px;margin-right:10px;">
+        <td>Requested Services:</td>   @if (ContainsNotNullProp(Model.ARObject, "SvcRequested"))
+        {
+    <td>@Model.ARObject.SvcRequested</td>       }
+        else
+        {
+    <td />     }
+    </tr>
+    <tr style="margin-left:10px;margin-right:10px;">
+        <td>Duration :</td>   @if (ContainsNotNullProp(Model.ARObject, "Details"))
+        {
+    <td>@Model.ARObject.Details</td>     }
+        else
+        {
+    <td />     }
+    </tr>
+    <tr style="margin-left:10px;margin-right:10px;">
+        <td>Body Part:</td>   @if (ContainsNotNullProp(Model.ARObject, "InjuryDesc"))
+        {
+    <td>@Model.ARObject.InjuryDesc</td>     }
+        else
+        {
+    <td />     }
+    </tr>
+    <tr style="margin-left:10px;margin-right:10px;">
+        <td colspan="2">
+            <br />
+        </td>
+    </tr>
+    <tr style="margin-left:10px;margin-right:10px;">
+        <td>Requesting Clinic:</td>   @if (ContainsNotNullProp(Model.ARObject, "RequestingClinic"))
+        {
+    <td>@Model.ARObject.RequestingClinic</td>     }
+        else
+        {
+    <td />     }
+    </tr>
+    <tr style="margin-left:10px;margin-right:10px;">
+        <td>Physician:</td>   @if (ContainsNotNullProp(Model.ARObject, "PhysicianName"))
+        {
+    <td>@Model.ARObject.PhysicianName</td>     }
+        else
+        {
+    <td />     }
+    </tr>
+    <tr style="margin-left:10px;margin-right:10px;">
+        <td colspan="2">
+            <br />
+        </td>
+    </tr>
+</table>
+<section style="font-size: 12pt;max-width:720px; width: 75%;font-family: Tahoma, sans-serif;">
+    <p>
+        <span>Thank you,</span>
+    </p>
+    <span style="font-size:14pt;">
+        <strong>Corporate Remedies, Inc.</strong>
+    </span>
+    <br />
+    <span>Ancillary Resource Center</span>
+    <br />
+    <span>Ph: (866) 818-9190</span>
+</section>
+<footer style="font-size: 12pt;max-width:720px; width: 75%;">
+    <br />
+    <table width="50%" style="font-size: 12pt;font-family:Andale Mono">
+        <tbody>
+            <tr>
+                <td class="small-heading" style="font-size: 12pt;text-decoration:underline;width: 20%;">Texas</td>
+                <td class="small-heading" style="font-size: 12pt;text-decoration:underline">Oklahoma</td>
+            </tr> Template
+            <tr>
+                <!-- Phone -->
+                <td>(888) 379-2049 Texas Fax</td>
+                <td>(866) 349-0087 Oklahoma Fax</td>
+            </tr>
+            <tr>
+                <!-- Email -->
+                <td>
+                    <a href="mailto:referrals@corporateremedies.com">referrals@corporateremedies.com</a>
+                </td>
+                <td>
+                    <a href="mailto:OKreferrals@corporateremedies.com">OKreferrals@corporateremedies.com</a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <br />
+                </td>
+            </tr>
+            <tr>
+                <!-- Web -->
+                <td colspan="2">
+                    Visit our website at: <a href="http://www.corporateremedies.com">http://www.corporateremedies.com</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>      <p>"It is a pleasure to be of service"</p>
+    <br />
+</footer>   <p style="font-size:10px;">CONFIDENTIALITY NOTICE: This message and all attachments transmitted herewith may contain legally privileged and confidential information intended solely for the use of the addressee.    If the reader of this message is not the intended recipient, you are hereby notified that any reading, dissemination, distribution, copying, or other use of this message or its attachments is strictly prohibited.    If you have received this message in error, please notify the sender immediately and delete this message from your system. Thank you.</p>
+

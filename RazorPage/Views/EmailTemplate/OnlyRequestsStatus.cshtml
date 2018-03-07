@@ -1,0 +1,127 @@
+﻿
+@{
+    ViewBag.Title = "OnlyRequestsStatus";
+}
+@functions{
+    public bool ContainsNotNullProp(dynamic obj, string prop)
+    {
+        object tempObj = null;
+        bool propExists = ((IDictionary<String, object>)obj).TryGetValue(prop, out tempObj);
+        return propExists && tempObj != null;
+    }
+}
+<table style="font-size:11pt;font-family:Tahoma;font-weight:normal;width:100%;">   <tr>    <td style="width:22%;">To:</td>@if (ContainsNotNullProp(Model.ARObject, "RequestingClinic"))
+{
+    <td>@Model.ARObject.RequestingClinic</td>}
+else
+{
+    <td />}</tr>
+<tr>    <td>Fax:</td>@if (ContainsNotNullProp(Model.ARObject, "ClinicFax") && !string.IsNullOrEmpty(Model.ARObject.ClinicFax))
+{
+    <td>@String.Format("({0}) {1}-{2}", Model.ARObject.ClinicFax.Substring(0, 3), Model.ARObject.ClinicFax.Substring(3, 3), Model.ARObject.ClinicFax.Substring(6, Model.ARObject.ClinicFax.Length - 6))</td>}
+else
+{
+    <td />}</tr>
+<tr>    <td>Attn:</td>@if (ContainsNotNullProp(Model.ARObject, "Contact"))
+{
+    <td>@Model.ARObject.Contact</td>}
+else
+{
+    <td />}</tr>
+<tr>    <td>Physician:</td>@if (ContainsNotNullProp(Model.ARObject, "PhysicianName"))
+{
+    if (ContainsNotNullProp(Model.ARObject, "Suffix"))
+    {
+    <td>@Model.ARObject.PhysicianName &nbsp; @Model.ARObject.Suffix</td>}
+    else
+    {
+    <td>@Model.ARObject.PhysicianName</td>}
+}
+else
+{
+    <td />}</tr>
+<tr>    <td>From:</td>    <td>Corporate Remedies - Ancillary Resource Center</td>   </tr>
+<tr>    <td colspan="2">     <br />    </td>   </tr>
+<tr>    <td colspan="2">     <p style="font-size:16pt;font-weight:bold;font-family:Tahoma">REQUEST STATUS NOTIFICATION</p>    </td>   </tr>
+<tr>    <td colspan="2">     <br />    </td>   </tr>
+<tr style="margin-left:10px;margin-right:10px;">    <td>Patient Name: </td>@if (ContainsNotNullProp(Model.ARObject, "PatientName"))
+{
+    <td>@Model.ARObject.PatientName</td>}
+else
+{
+    <td />}</tr>
+<tr style="margin-left:10px;margin-right:10px;">    <td>DOB:</td>@if (ContainsNotNullProp(Model.ARObject, "DOB"))
+{
+    <td>@Model.ARObject.DOB</td>}
+else
+{
+    <td />}</tr>
+<tr style="margin-left:10px;margin-right:10px;line-height:100%;">    <td colspan="2">     <br />    </td>   </tr>
+<tr style="margin-left:10px;margin-right:10px;">    <td>Employer:</td>@if (ContainsNotNullProp(Model.ARObject, "Client"))
+{
+    <td>@Model.ARObject.Client</td>}
+else
+{
+    <td />}</tr>
+<tr style="margin-left:10px;margin-right:10px;">    <td>Claim No:</td>@if (ContainsNotNullProp(Model.ARObject, "ClaimNumber"))
+{
+    <td>@Model.ARObject.ClaimNumber</td>}
+else
+{
+    <td />}</tr>
+<tr style="margin-left:10px;margin-right:10px;">    <td>DOI:</td>@if (ContainsNotNullProp(Model.ARObject, "DOI"))
+{
+    <td>@Model.ARObject.DOI</td>}
+else
+{
+    <td />}</tr>
+<tr style="margin-left:10px;margin-right:10px;">    <td colspan="2">     <br />    </td>   </tr>
+<tr style="margin-left:10px;margin-right:10px;">    <td>Service:</td>@if (ContainsNotNullProp(Model.ARObject, "SvcRequested"))
+{
+    <td>@Model.ARObject.SvcRequested</td>}
+else
+{
+    <td />}</tr>
+<tr style="margin-left:10px;margin-right:10px;">    <td>Duration (if applicable):</td>@if (ContainsNotNullProp(Model.ARObject, "Details"))
+{
+    <td>@Model.ARObject.Details</td>}
+else
+{
+    <td />}</tr>
+<tr style="margin-left:10px;margin-right:10px;">    <td>Body Part:</td>@if (ContainsNotNullProp(Model.ARObject, "InjuryDesc"))
+{
+    <td>@Model.ARObject.InjuryDesc</td>}
+else
+{
+    <td />}</tr>
+<tr>    <td colspan="2">     <p style="margin-top:5px;margin-bottom:5px;">     </td>    </tr>
+<tr style="margin-left:10px;margin-right:10px;font-weight:bold;">     <td>STATUS:</td>@if (ContainsNotNullProp(Model, "Status"))
+{
+    <td style="font-weight:bold;">@Model.Status</td>}
+else
+{
+    <td />}</tr>
+<tr style="margin-left:10px;margin-right:10px;">     <td colspan="2">      <br />     </td>    </tr>
+<tr>     <td colspan="2">If there are any questions regarding the status of this request, please contact the Adjuster or Nurse Case Manager listed below.</td>    </tr>
+<tr style="margin-left:10px;margin-right:10px;">     <td colspan="2">      <br />     </td>    </tr>
+<tr style="margin-left:10px;margin-right:10px;">     <td>ADJ or NCM:</td>@if (ContainsNotNullProp(Model.ARObject, "DeterminationByInfo"))
+{
+    <td>@Model.ARObject.DeterminationByInfo.AdjusterName</td>}
+else
+{
+    <td />}</tr>
+<tr style="margin-left:10px;margin-right:10px;">     <td>Company:</td>@if (ContainsNotNullProp(Model.ARObject, "DeterminationByInfo"))
+{
+    <td>@Model.ARObject.DeterminationByInfo.InsuranceCompany</td>}
+else
+{
+    <td />}</tr>
+<tr style="margin-left:10px;margin-right:10px;">     <td>Phone:</td>@if (ContainsNotNullProp(Model.ARObject, "DeterminationByInfo") && !string.IsNullOrEmpty(Model.ARObject.DeterminationByInfo.Phone))
+{
+    <td>@String.Format("({0}) {1}-{2}", Model.ARObject.DeterminationByInfo.Phone.Substring(0, 3), Model.ARObject.DeterminationByInfo.Phone.Substring(3, 3), Model.ARObject.DeterminationByInfo.Phone.Substring(6, Model.ARObject.DeterminationByInfo.Phone.Length - 6))</td>}
+else
+{
+    <td />}</tr>   </table>
+<section style="font-size: 12pt;max-width:720px; width: 75%;font-family: Tahoma, sans-serif;">    <p>     <span>Thank you,</span>    </p>    <span style="font-size:14pt;">     <strong>Corporate Remedies, Inc.</strong>    </span>    <br />    <span>Ancillary Resource Center</span>    <br />    <span>Ph: (866) 818-9190</span>   </section>
+<footer style="font-size: 12pt;max-width:720px; width: 75%;">    <br />    <table width="50%" style="font-size: 12pt;font-family:Andale Mono">     <tbody>      <tr>       <td class="small-heading" style="font-size: 12pt;text-decoration:underline;width:22%;" ">Texas</td>       <td class="small-heading" style="font-size: 12pt;text-decoration:underline">Oklahoma</td>      </tr>      <tr>       <td>(888) 379-2049 Texas Fax</td>       <td>(866) 349-0087 Oklahoma Fax</td>      </tr>      <tr>       <td>        <a href="mailto:referrals@corporateremedies.com">referrals@corporateremedies.com</a>       </td>       <td>        <a href="mailto:OKreferrals@corporateremedies.com">OKreferrals@corporateremedies.com</a>       </td>      </tr>      <tr>       <td colspan="2">        <br />       </td>      </tr>      <tr>       <td colspan="2">Visit our website at: <a href="http://www.corporateremedies.com">http://www.corporateremedies.com</a>       </td>      </tr>     </tbody>    </table> <p>"It is a pleasure to be of service"</p>   </footer><p style="font-size:10px;">CONFIDENTIALITY NOTICE: This message and all attachments transmitted herewith may contain legally privileged and confidential information intended solely for the use of the addressee. If the reader of this message is not the intended recipient, you are hereby notified that any reading, dissemination, distribution, copying, or other use of this message or its attachments is strictly prohibited. If you have received this message in error, please notify the sender immediately and delete this message from your system. Thank you.</p>
+

@@ -1,0 +1,365 @@
+﻿
+@{
+    ViewBag.Title = "AuthorizationForSchedulingTemplate";
+}
+@functions{
+    public bool ContainsNotNullProp(dynamic obj, string prop)
+    {
+        object tempObj = null;
+        bool propExists = ((IDictionary<String, object>)obj).TryGetValue(prop, out tempObj);
+        return propExists && tempObj != null;
+    }
+}
+<div style="font-family:Times New Roman;font-size:11pt;">
+    <table style="width:725px;color:#000080;">
+        <tr style="text-decoration:underline;font-size:12pt;">
+            <td style="font-weight:bold;width:100%;">Texas-</td>
+            <td style="font-weight:bold;">Oklahoma-</td>
+        </tr>
+        <tr style="font-size:10pt;">
+            <td>888.379.2049 Texas Fax</td>
+            <td>866.349.0087 Oklahoma Fax</td>
+        </tr>
+        <tr style="font-size:10pt;">
+            <td>
+                <a href="mailto:referrals@corporateremedies.com">referrals@corporateremedies.com</a>
+            </td>
+            <td>
+                <a href="mailto:referrals@OKcorporateremedies.com">OKreferrals@corporateremedies.com</a>
+            </td>
+        </tr>
+    </table>
+    <br />
+    <table width="100%">
+        <tbody>
+            <tr>
+                <td style="font-weight:bold;" align="center">
+                    <span> ** APPROVED **</span>
+                    <br />
+                    <span>AUTHORIZATION FOR SERVICES</span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <br />
+                </td>
+            </tr>
+            <tr>
+                <td align="CENTER" style="font-weight:bold;">* * PLEASE CALL PATIENT TO SCHEDULE - APPROVAL INCLUDED HEREIN * *</td>
+            </tr>
+        </tbody>
+    </table>
+    <hr />
+    <table cellspacing="15px">
+        <tr>
+            <td style="font-weight:bold;white-space: nowrap;float: left;margin-left: -20px;font-style: italic;" colspan="4">
+                Corporate Remedies <u>DOES NOT</u> process claims. <u>Provide the billing information below to your billing office.</u>
+            </td>
+        </tr>
+    </table>
+    <table cellspacing="5px" style="outline-style:double;outline-width:5px;">
+        <tr>
+            <th rowspan="2" style="font-weight: bold;text-align:left;padding-right:60px;" data-mce-style="font-weight: bold;padding-right:60px;">BILLING INFORMATION:</th>@if (ContainsNotNullProp(Model.ARObject, "InsuranceBillingAddress"))
+            {
+        <td colspan="4">@Model.ARObject.InsuranceBillingAddress</td>}
+            else
+            {
+        <td />}
+        </tr>
+        <tr>
+            <td style="font-weight:bold;">Claim / Auth No:</td>@if (ContainsNotNullProp(Model.ARObject, "ClaimNumber"))
+            {
+        <td width="20%;" style="text-align:left;">@Model.ARObject.ClaimNumber</td>}
+            else
+            {
+        <td width="25%;" />}
+            <td style="font-weight:bold;">Date Of Injury:</td>@if (ContainsNotNullProp(Model.ARObject, "DOI"))
+            {
+        <td width="15%;" style="text-align:left;">@Model.ARObject.DOI</td>}
+            else
+            {
+        <td width="25%;" />}
+        </tr>
+    </table>
+    <table cellspacing="15px">
+        <tr>
+            <td style="width:6%" />
+            <td style="font-weight: bold;font-style: italic;" colspan="30" data-mce-style="font-weight: bold; font-style: italic;">(Please include Claim/Auth number on Medical Records and Proper Claim Forms)</td>
+        </tr>
+    </table>
+    <hr />
+    <br />
+    <table style="width:100%;">
+        <tbody>
+            <tr height="16">
+                <td style="font-weight:bold;width:23%;">Approved at:</td>@if (ContainsNotNullProp(Model.ARObject, "AncillaryClinic"))
+                {
+            <td style="font-weight:bold;">@Model.ARObject.AncillaryClinic</td>}
+                else
+                {
+            <td />}
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <br />
+                </td>
+            </tr>
+            <tr height="16" style="width:725px;">
+                <td style="font-weight:bold">Patient Name:</td>
+                <td>@Model.ARObject.PatientName</td>
+            </tr>
+            <tr>
+                @{
+                    Model.ARObject.PatientHomePhone = String.IsNullOrEmpty(Model.ARObject.PatientHomePhone) ? Model.ARObject.PatientHomePhone : Model.ARObject.PatientHomePhone.Replace("-", "");
+                    Model.ARObject.PatientOtherPhone = String.IsNullOrEmpty(Model.ARObject.PatientOtherPhone) ? Model.ARObject.PatientOtherPhone : Model.ARObject.PatientOtherPhone.Replace("-", "");
+                    Model.ARObject.PatientWorkPhone = String.IsNullOrEmpty(Model.ARObject.PatientWorkPhone) ? Model.ARObject.PatientWorkPhone : Model.ARObject.PatientWorkPhone.Replace("-", "");
+                }
+                <td style="font-weight:bold;">Patient Phone:</td>
+                @if (((ContainsNotNullProp(Model.ARObject, "PatientHomePhone") && !String.IsNullOrEmpty(Model.ARObject.PatientHomePhone)) || (ContainsNotNullProp(Model.ARObject, "PatientOtherPhone") && !String.IsNullOrEmpty(Model.ARObject.PatientOtherPhone)) || (ContainsNotNullProp(Model.ARObject, "PatientWorkPhone") && !String.IsNullOrEmpty(Model.ARObject.PatientWorkPhone))))
+                {
+                    if ((ContainsNotNullProp(Model.ARObject, "PatientHomePhone") && !String.IsNullOrEmpty(Model.ARObject.PatientHomePhone)) && (ContainsNotNullProp(Model.ARObject, "PatientOtherPhone") && !String.IsNullOrEmpty(Model.ARObject.PatientOtherPhone)) && (ContainsNotNullProp(Model.ARObject, "PatientWorkPhone") && !String.IsNullOrEmpty(Model.ARObject.PatientWorkPhone)))
+                    {
+                        <td> @String.Format("({0}) {1}-{2}", Model.ARObject.PatientHomePhone.Substring(0, 3), Model.ARObject.PatientHomePhone.Substring(3, 3), Model.ARObject.PatientHomePhone.Substring(6, Model.ARObject.PatientHomePhone.Length - 6))&nbsp;@String.Format("({0}) {1}-{2}", Model.ARObject.PatientOtherPhone.Substring(0, 3), Model.ARObject.PatientOtherPhone.Substring(3, 3), Model.ARObject.PatientOtherPhone.Substring(6, Model.ARObject.PatientOtherPhone.Length - 6))&nbsp;@String.Format("({0}) {1}-{2}", Model.ARObject.PatientWorkPhone.Substring(0, 3), Model.ARObject.PatientWorkPhone.Substring(3, 3), Model.ARObject.PatientWorkPhone.Substring(6, Model.ARObject.PatientWorkPhone.Length - 6)) </td>}
+                    else if ((ContainsNotNullProp(Model.ARObject, "PatientHomePhone") && !String.IsNullOrEmpty(Model.ARObject.PatientHomePhone)) && (ContainsNotNullProp(Model.ARObject, "PatientOtherPhone") && !String.IsNullOrEmpty(Model.ARObject.PatientOtherPhone)))
+                    {
+            <td> @String.Format("({0}) {1}-{2}", Model.ARObject.PatientHomePhone.Substring(0, 3), Model.ARObject.PatientHomePhone.Substring(3, 3), Model.ARObject.PatientHomePhone.Substring(6, Model.ARObject.PatientHomePhone.Length - 6))&nbsp;@String.Format("({0}) {1}-{2}", Model.ARObject.PatientOtherPhone.Substring(0, 3), Model.ARObject.PatientOtherPhone.Substring(3, 3), Model.ARObject.PatientOtherPhone.Substring(6, Model.ARObject.PatientOtherPhone.Length - 6))&nbsp; </td>}
+                    else if ((ContainsNotNullProp(Model.ARObject, "PatientHomePhone") && !String.IsNullOrEmpty(Model.ARObject.PatientHomePhone)) && (ContainsNotNullProp(Model.ARObject, "PatientWorkPhone") && !String.IsNullOrEmpty(Model.ARObject.PatientWorkPhone)))
+                    {
+            <td> @String.Format("({0}) {1}-{2}", Model.ARObject.PatientHomePhone.Substring(0, 3), Model.ARObject.PatientHomePhone.Substring(3, 3), Model.ARObject.PatientHomePhone.Substring(6, Model.ARObject.PatientHomePhone.Length - 6))&nbsp;@String.Format("({0}) {1}-{2}", Model.ARObject.PatientWorkPhone.Substring(0, 3), Model.ARObject.PatientWorkPhone.Substring(3, 3), Model.ARObject.PatientWorkPhone.Substring(6, Model.ARObject.PatientWorkPhone.Length - 6)) </td>}
+                    else if ((ContainsNotNullProp(Model.ARObject, "PatientOtherPhone") && !String.IsNullOrEmpty(Model.ARObject.PatientOtherPhone)) && (ContainsNotNullProp(Model.ARObject, "PatientWorkPhone") && !String.IsNullOrEmpty(Model.ARObject.PatientWorkPhone)))
+                    {
+            <td>@String.Format("({0}) {1}-{2}", Model.ARObject.PatientOtherPhone.Substring(0, 3), Model.ARObject.PatientOtherPhone.Substring(3, 3), Model.ARObject.PatientOtherPhone.Substring(6, Model.ARObject.PatientOtherPhone.Length - 6))&nbsp;@String.Format("({0}) {1}-{2}", Model.ARObject.PatientWorkPhone.Substring(0, 3), Model.ARObject.PatientWorkPhone.Substring(3, 3), Model.ARObject.PatientWorkPhone.Substring(6, Model.ARObject.PatientWorkPhone.Length - 6)) </td>}
+                    else if (ContainsNotNullProp(Model.ARObject, "PatientHomePhone") && !String.IsNullOrEmpty(Model.ARObject.PatientHomePhone))
+                    {
+            <td> @String.Format("({0}) {1}-{2}", Model.ARObject.PatientHomePhone.Substring(0, 3), Model.ARObject.PatientHomePhone.Substring(3, 3), Model.ARObject.PatientHomePhone.Substring(6, Model.ARObject.PatientHomePhone.Length - 6))&nbsp; </td>}
+                    else if (ContainsNotNullProp(Model.ARObject, "PatientOtherPhone") && !String.IsNullOrEmpty(Model.ARObject.PatientOtherPhone))
+                    {
+            <td>@String.Format("({0}) {1}-{2}", Model.ARObject.PatientOtherPhone.Substring(0, 3), Model.ARObject.PatientOtherPhone.Substring(3, 3), Model.ARObject.PatientOtherPhone.Substring(6, Model.ARObject.PatientOtherPhone.Length - 6))&nbsp; </td>}
+                    else if (ContainsNotNullProp(Model.ARObject, "PatientWorkPhone") && !String.IsNullOrEmpty(Model.ARObject.PatientWorkPhone))
+                    {
+            <td>@String.Format("({0}) {1}-{2}", Model.ARObject.PatientWorkPhone.Substring(0, 3), Model.ARObject.PatientWorkPhone.Substring(3, 3), Model.ARObject.PatientWorkPhone.Substring(6, Model.ARObject.PatientWorkPhone.Length - 6)) </td>}
+                }
+                else
+                {
+            <td />}
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <br />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <hr />
+    <table style="width:100%;">
+        <tbody>
+            <tr height="16">
+                <td />
+                <td style="font-weight:bold;font-style:italic;font-size:12px;">** Approved Services are limited to those listed below **</td>
+            </tr>
+            <tr height="16" style="outline-style: inset;outline-width: 2px;">
+                <td style="font-weight: bold;display:flex;" width="25%;">Approved Services:</td>@if (ContainsNotNullProp(Model.ARObject, "ApprovedServices"))
+                {
+                    if (ContainsNotNullProp(Model.ARObject, "ApprovedDetails") && ContainsNotNullProp(Model.ARObject, "ApprovedBodyPart"))
+                    {
+            <td style="text-transform:uppercase;">@Model.ARObject.ApprovedServices&nbsp;@Model.ARObject.ApprovedDetails&nbsp;@Model.ARObject.ApprovedBodyPart</td>}
+                    else if (ContainsNotNullProp(Model.ARObject, "ApprovedDetails"))
+                    {
+            <td style="text-transform:uppercase;">@Model.ARObject.ApprovedServices&nbsp;@Model.ARObject.ApprovedDetails</td>}
+                    else if (ContainsNotNullProp(Model.ARObject, "ApprovedBodyPart"))
+                    {
+            <td style="text-transform:uppercase;">@Model.ARObject.ApprovedServices&nbsp;@Model.ARObject.ApprovedBodyPart</td>}
+                    else
+                    {
+            <td style="text-transform:uppercase;">@Model.ARObject.ApprovedServices</td>}
+                }
+                else
+                {
+            <td />}
+            </tr>
+            <tr height="14">
+                <td />
+                <td>
+                    <font style="FONT-SIZE:8pt;font-style:italic;" face="Tahoma">(Med Notes, Rx, and Demographic Info are attached with this Authorization)</font>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <hr />
+    <table style="width:100%;">
+        <tbody>
+            <tr>
+                <td style="font-weight:bold">Employer: </td>@if (ContainsNotNullProp(Model.ARObject, "Client"))
+                {
+            <td>@Model.ARObject.Client</td>}
+                else
+                {
+            <td />}
+                <td style="font-weight:bold;">Services Approved by:</td>@if (ContainsNotNullProp(Model.ARObject, "DeterminationBy"))
+                {
+            <td>@Model.ARObject.DeterminationBy</td>}
+                else
+                {
+            <td />}
+                <td style="font-weight:bold;">Adjuster:</td>@if (ContainsNotNullProp(Model.ARObject, "Adjuster"))
+                {
+            <td>@Model.ARObject.Adjuster</td>}
+                else
+                {
+            <td />}
+            </tr>
+        </tbody>
+    </table>
+    <table style="width:100%;font-family=Tahoma;font-size:11pt;">
+        <tbody>
+            <tr height="18">
+                <td style="font-size:8pt;font-style:italic;white-space:nowrap;font-family:Tahoma;" align="center">
+                    **Please <u>
+                        <b>DO NOT</b>
+                    </u> call the Adjuster, Nurse Case Manager, or Provider; contact Corporate Remedies at <b>866-818-9190<b>.**
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <br />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <hr />
+    <table style="width:100%;font-family=Tahoma;font-size:11pt;">
+        <tbody>
+            <tr height="16">
+                <td align="CENTER" style="font-weight:bold;">If additional services are recommended, patient must be re-evaluated by the treating physician and services must be pre-approved through Corporate Remedies.</td>
+            </tr>
+        </tbody>
+    </table>
+    <hr />
+    <table style="width:100%;font-family=Tahoma;font-size:11pt;">
+        <tbody>
+            <tr height="16">
+                <td align="CENTER" style="font-size:12pt;font-weight:bold;">-----------------TERMS AND CONDITIONS-----------------</td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <br />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table style="width:100%;font-family:Tahoma;font-size:9pt;">
+        <tbody>
+            <tr height="16">
+                <td align="LEFT" style="">
+                    <span style="font-weight:bold;">SCHEDULING - Provider agrees to:</span>
+                    <br />
+                    <ul>
+                        <li style="font-weight:bold;font-style:italic;">Contact patient for scheduling within 24-48 hours of receiving this authorization.</li>
+                        <li>Inform Corporate Remedies of the date and time of appointment.</li>
+                        <li>Pre-authorization MUST be obtained through Corporate Remedies for any changes as to ancillary facility <u>location</u> or for the <u>services authorized</u>. Change requests must also be submitted to Corporate Remedies via email, fax, or phone according to the state in which you are located (see above).</li>
+                        <li>Inform Corporate Remedies of any <u>changes to the appointment schedule</u> (reschedule, no-shows, cancellations, etc.) or any issues regarding compliance.</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table style="width:100%;font-family:Tahoma;font-size:9pt;">
+        <tbody>
+            <tr height="16">
+                <td align="LEFT" style="">
+                    <span style="font-weight:bold;">DIAGNOSTIC and FCE REPORTS:</span>
+                    <br />
+                    <br />
+                    <div> @if ((ContainsNotNullProp(Model.ARObject, "PhysicianName") && !string.IsNullOrEmpty(Model.ARObject.PhysicianName)))
+                    {
+                        if (ContainsNotNullProp(Model.ARObject, "RequestingClinic") && ContainsNotNullProp(Model.ARObject, "Suffix") && ContainsNotNullProp(Model.ARObject, "ClinicFax") && !string.IsNullOrEmpty(Model.ARObject.ClinicFax))
+                        {<p style="display:inline;">Per Corporate Remedies contract, please send report(s), as soon as possible, to both Corporate Remedies (according to the state in which you are located) and the ordering physician: @Model.ARObject.PhysicianName,@Model.ARObject.Suffix&nbsp;of @Model.ARObject.RequestingClinic&nbsp;<br /> PHYSICIAN FAX NUMBER:@String.Format("({0}) {1}-{2}", Model.ARObject.ClinicFax.Substring(0, 3), Model.ARObject.ClinicFax.Substring(3, 3), Model.ARObject.ClinicFax.Substring(6, Model.ARObject.ClinicFax.Length - 6))</p>}
+                        else if (ContainsNotNullProp(Model.ARObject, "RequestingClinic") && ContainsNotNullProp(Model.ARObject, "ClinicFax") && !string.IsNullOrEmpty(Model.ARObject.ClinicFax))
+                        {<p style="display:inline;">Per Corporate Remedies contract, please send report(s), as soon as possible, to both Corporate Remedies (according to the state in which you are located) and the ordering physician: @Model.ARObject.PhysicianName &nbsp;of @Model.ARObject.RequestingClinic&nbsp;<br /> PHYSICIAN FAX NUMBER:@String.Format("({0}) {1}-{2}", Model.ARObject.ClinicFax.Substring(0, 3), Model.ARObject.ClinicFax.Substring(3, 3), Model.ARObject.ClinicFax.Substring(6, Model.ARObject.ClinicFax.Length - 6))</p>}
+                        else if (ContainsNotNullProp(Model.ARObject, "RequestingClinic") && ContainsNotNullProp(Model.ARObject, "Suffix"))
+                        {<p style="display:inline;">Per Corporate Remedies contract, please send report(s), as soon as possible, to both Corporate Remedies (according to the state in which you are located) and the ordering physician: @Model.ARObject.PhysicianName,@Model.ARObject.Suffix&nbsp;of @Model.ARObject.RequestingClinic</p>}
+                        else if (ContainsNotNullProp(Model.ARObject, "ClinicFax") && !string.IsNullOrEmpty(Model.ARObject.ClinicFax) && ContainsNotNullProp(Model.ARObject, "Suffix"))
+                        {<p style="display:inline;">Per Corporate Remedies contract, please send report(s), as soon as possible, to both Corporate Remedies (according to the state in which you are located) and the ordering physician: @Model.ARObject.PhysicianName,@Model.ARObject.Suffix&nbsp;<br /> PHYSICIAN FAX NUMBER:@String.Format("({0}) {1}-{2}", Model.ARObject.ClinicFax.Substring(0, 3), Model.ARObject.ClinicFax.Substring(3, 3), Model.ARObject.ClinicFax.Substring(6, Model.ARObject.ClinicFax.Length - 6)) </p>}
+                        else if (ContainsNotNullProp(Model.ARObject, "ClinicFax") && !string.IsNullOrEmpty(Model.ARObject.ClinicFax))
+                        {<p style="display:inline;">Per Corporate Remedies contract, please send report(s), as soon as possible, to both Corporate Remedies (according to the state in which you are located) and the ordering physician: @Model.ARObject.PhysicianName&nbsp;<br /> PHYSICIAN FAX NUMBER:@String.Format("({0}) {1}-{2}", Model.ARObject.ClinicFax.Substring(0, 3), Model.ARObject.ClinicFax.Substring(3, 3), Model.ARObject.ClinicFax.Substring(6, Model.ARObject.ClinicFax.Length - 6)) </p>}
+                        else if (ContainsNotNullProp(Model.ARObject, "RequestingClinic"))
+                        {<p style="display:inline;">Per Corporate Remedies contract, please send report(s), as soon as possible, to both Corporate Remedies (according to the state in which you are located) and the ordering physician: @Model.ARObject.PhysicianName &nbsp;of @Model.ARObject.RequestingClinic</p>}
+                        else if (ContainsNotNullProp(Model.ARObject, "Suffix"))
+                        {<p style="display:inline;">Per Corporate Remedies contract, please send report(s), as soon as possible, to both Corporate Remedies (according to the state in which you are located) and the ordering physician: @Model.ARObject.PhysicianName,@Model.ARObject.Suffix&nbsp;</p>}
+                        else
+                        {<p style="display:inline;">Per Corporate Remedies contract, please send report(s), as soon as possible, to both Corporate Remedies (according to the state in which you are located) and the ordering physician: @Model.ARObject.PhysicianName</p>}
+                    }
+                    else
+                    {<p style="display:inline;">Per Corporate Remedies contract, please send report(s), as soon as possible, to both Corporate Remedies (according to the state in which you are located) and the ordering physician:</p>}</div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br />
+    <table style="width:100%;font-family:Tahoma;font-size:9pt;">
+        <tbody>
+            <tr height="16">
+                <td style="font-weight:bold;">THERAPY REFERRALS:</td>
+            </tr>
+            <tr>
+                <td>
+                    <ul>
+                        <li>Send copy of daily progress notes to referring provider on a weekly basis.</li>
+                        <li>A maximum of 4 units per visit will be compensated for unless specifically pre-approved through Corporate Remedies. All evals are included in total sessions approved.</li>
+                        <li>Unless specifically pre-approved, TENS units and Dry Needling will not be compensated for.</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+        <tbody>
+            <tr>
+                <td>
+                    <b>
+                        <font style="FONT-SIZE:9pt;margin-right:10px;" face="Tahoma">FEES:</font>
+                    </b>
+                </td>
+                <td>Fees are in accordance with Corporate Remedies’ contract. Provider agrees not to balance bill the patient.</td>
+            </tr>
+        </tbody>
+    </table>
+    <br />
+    <table border="0" cellspacing="0" cellpadding="0" width="100%">
+        <tbody>
+            <tr style="font-weight:bold;">
+                <td>
+                    <b>
+                        <font style="FONT-SIZE:9pt" face="Tahoma">ACCEPTANCE:</font>
+                    </b>
+                </td>
+                <td style="font-style:italic;">Scheduling of this patient confirms that provider agrees to all terms noted above.</td>
+            </tr>
+            <tr colspan="2">
+                <td>
+                    <br />
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="2" style="width:15%;">
+                    <b>
+                        <font style="FONT-SIZE:9pt;" face="Tahoma">PLEASE NOTE:</font>
+                    </b>
+                </td>
+                <td>Should you have any questions regarding this agreement, please contact</td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Corporate Remedies, Inc. at (866) 818-9190 or (214) 231-7444, Opt. 2.</b>
+                </td>
+            </tr>
+            <tr colspan="2">
+                <td>
+                    <br />
+                </td>
+            </tr>
+        </tbody>
+    </table><p style="font-size:11px;">
+        <b>CONFIDENTIALITY NOTICE:</b> This correspondence and all attachments transmitted herewith may contain legally privileged and confidential information intended solely for the use of the addressee. If the reader of this message is not the intended recipient, you are hereby notified that any reading, dissemination, distribution, copying, or other use of this message or its attachments is strictly prohibited. If you have received this message in error, please notify the sender immediately and delete this message from your system. Thank you.
+    </p>
+</div>
